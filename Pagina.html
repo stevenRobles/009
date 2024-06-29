@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Emisión de Boletos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        
+        <div id="inicio" class="screen" style="display:block;">
+            <h1>Sistema de Emisión de Boletos</h1>
+            <button onclick="showMenu()">Iniciar</button>
+        </div>
+        
+        
+        <div id="menu" class="screen">
+            <h1>Seleccione su Destino</h1>
+            <select id="destino">
+                <option value="estacionA">Estación A</option>
+                <option value="estacionB">Estación B</option>
+                <option value="estacionC">Estación C</option>
+            </select>
+            <button onclick="showPago()">Seleccionar Destino</button>
+        </div>
+        
+        
+        <div id="pago" class="screen">
+            <h1>Ingrese su Información de Pago</h1>
+            <label for="tarjeta">Número de Tarjeta de Crédito</label>
+            <input type="text" id="tarjeta" placeholder="1234 5678 9012 3456">
+            <label for="identificador">Número de Identificación </label>
+            <input type="text" id="identificador" placeholder="CEDULA DE IDENTIDAD ">
+            <div>
+                <input type="checkbox" id="aceptar-terminos" name="aceptar-terminos">
+                <label for="aceptar-terminos">Acepto los <a href="#" onclick="mostrarTerminos()">Términos y Condiciones</a> y la <a href="#" onclick="mostrarPolitica()">Política de Reembolsos</a></label>
+            </div>
+            <button onclick="showConfirmacion()" id="confirmar-pago" disabled>Confirmar Pago</button>
+        </div>
+        
+        
+        <div id="confirmacion" class="screen">
+            <h1>Confirmación de Pago</h1>
+            <p>Destino: <span id="confirmacion-destino"></span></p>
+            <p>Monto total a pagar: $2.50</p>
+            <button onclick="emitirBoleto()">Confirmar y Emitir Boleto</button>
+        </div>
+        
+        
+        <div id="boleto" class="screen">
+            <h1>Boleto Emitido</h1>
+            <p>Destino: <span id="boleto-destino"></span></p>
+            <p>Hora: <span id="boleto-hora"></span></p>
+            <p>Número de Boleto: <span id="boleto-numero"></span></p>
+            <button onclick="location.reload()">Salir</button>
+        </div>
+
+        
+        <div id="terminos" class="screen">
+            <h1>Términos y Condiciones</h1>
+            <p>1. Generalidades</p>
+            <p>1.1. Estos términos y condiciones rigen el uso del sistema automatizado de emisión de boletos para el metro de Quito.</p>
+            <p>1.2. Al utilizar este sistema, el usuario acepta estos términos y condiciones en su totalidad. Si no está de acuerdo con alguna parte de estos términos, no debe utilizar este sistema.</p>
+            <p>2. Uso del Sistema</p>
+            <p>2.1. El usuario debe seleccionar un destino e ingresar un número de tarjeta de crédito válido y un número de identificación personal (PIN) para la compra de boletos.</p>
+            <p>2.2. Es responsabilidad del usuario asegurarse de que toda la información proporcionada sea correcta y esté actualizada.</p>
+            <p>3. Emisión de Boletos</p>
+            <p>3.1. Una vez que se valida la transacción de la tarjeta de crédito, se emite el boleto y se carga el monto correspondiente a la cuenta de la tarjeta de crédito del usuario.</p>
+            <p>3.2. Los boletos emitidos son válidos únicamente para el destino seleccionado y no son transferibles.</p>
+            <p>4. Protección de Datos</p>
+            <p>4.1. Toda la información personal y financiera proporcionada por el usuario se manejará de acuerdo con las leyes de protección de datos aplicables y no se compartirá con terceros sin el consentimiento del usuario.</p>
+            <p>5. Modificaciones</p>
+            <p>5.1. El operador del sistema se reserva el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones entrarán en vigor inmediatamente después de su publicación en el sistema.</p>
+            <p>5.2. El uso continuado del sistema después de cualquier modificación constituirá la aceptación de dichos cambios por parte del usuario.</p>
+            <p>6. Limitación de Responsabilidad</p>
+            <p>6.1. El operador del sistema no será responsable de ninguna pérdida o daño que surja del uso del sistema o de cualquier fallo técnico del mismo.</p>
+            <p>6.2. El usuario acepta utilizar el sistema bajo su propio riesgo.</p>
+            <p>7. Ley Aplicable</p>
+            <p>7.1. Estos términos y condiciones se regirán e interpretarán de acuerdo con las leyes de Ecuador.</p>
+            <button onclick="ocultarTerminos()">Cerrar</button>
+        </div>
+
+        
+        <div id="politica" class="screen">
+            <h1>Política de Reembolsos</h1>
+            <p>1. Reembolsos</p>
+            <p>1.1. Los boletos emitidos a través del sistema automatizado de emisión de boletos no son reembolsables, excepto en los casos especificados en esta política.</p>
+            <p>2. Casos de Reembolso</p>
+            <p>2.1. Se considerarán solicitudes de reembolso en los siguientes casos:</p>
+            <ul>
+                <li>Fallos técnicos en el sistema que resulten en la emisión incorrecta de un boleto.</li>
+                <li>Cobros duplicados debido a errores del sistema.</li>
+                <li>Imposibilidad de utilizar el boleto debido a cierres inesperados del servicio de metro.</li>
+            </ul>
+            <p>3. Procedimiento de Reembolso</p>
+            <p>3.1. Para solicitar un reembolso, el usuario debe contactar al servicio de atención al cliente dentro de las 24 horas posteriores a la emisión del boleto.</p>
+            <p>3.2. El usuario debe proporcionar el número de boleto, detalles de la transacción y una descripción del problema encontrado.</p>
+            <p>3.3. El operador del sistema revisará la solicitud y, si procede, emitirá el reembolso correspondiente dentro de los 10 días hábiles siguientes a la recepción de la solicitud.</p>
+            <p>4. Exclusiones</p>
+            <p>4.1. No se otorgarán reembolsos por cambios de planes del usuario o errores en la selección del destino por parte del usuario.</p>
+            <p>4.2. Los boletos perdidos o robados no serán reembolsados.</p>
+            <p>5. Contacto</p>
+            <p>5.1. Para cualquier consulta o solicitud de reembolso, los usuarios pueden contactar al servicio de atención al cliente a través del correo electrónico soporte@metroquito.ec o llamar al +593 999999.</p>
+            <button onclick="ocultarPolitica()">Cerrar</button>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
